@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from PIL import Image, ImageDraw
 from astropy.coordinates import SkyCoord, AltAz, EarthLocation
 from astropy.time import Time
@@ -7,15 +9,17 @@ import numpy as np
 LAT_DEGREES = -30.52630901637761
 LON_DEGREES = -70.85329602458852
 
-STARTTIME = "2023-1-19 22:30:00"
-UTC_OFFSET_HOURS = -3
+now = " ".join(datetime.utcnow().isoformat().split(".")[0].split("T"))
+
+#STARTTIME = now#"2023-11-4 22:30:00"
+#UTC_OFFSET_HOURS = -3
 
 scale = 0.05
 
 # longer total -> more computation required
-MINUTES_TOTAL = 7*60
+MINUTES_TOTAL = 3*60
 # shorter intervals -> more computation required
-MINUTE_INTERVAL = 60
+MINUTE_INTERVAL = 15
 
 w = int(360*scale)
 h = int(180*scale)
@@ -35,7 +39,7 @@ for y in range(h):
 		
 		coord = SkyCoord(ra, dec, unit=u.deg)
 		
-		obstime = Time(STARTTIME) - UTC_OFFSET_HOURS * u.hour
+		obstime = Time.now()#Time(STARTTIME)# - UTC_OFFSET_HOURS * u.hour
 		
 		steps = 0
 		
